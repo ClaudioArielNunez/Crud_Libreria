@@ -1,3 +1,6 @@
+using Crud_Libreria.Datalayer;
+using Microsoft.EntityFrameworkCore;
+
 namespace Crud_Libreria
 {
     public class Program
@@ -5,9 +8,11 @@ namespace Crud_Libreria
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+            var con = builder.Configuration.GetConnectionString("DefaultConnection");
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            builder.Services.AddDbContext<LibreriaContext>(options => options.UseSqlServer(con));
 
             var app = builder.Build();
 
